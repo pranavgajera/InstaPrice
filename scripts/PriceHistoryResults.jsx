@@ -6,6 +6,7 @@ import PostButton from './PostButton';
 
 export default function PriceHistoryResults(props) {
     const [pricehistory, setPricehistory] = useState([]);
+    const [historyExists, setHistoryExists] = useState(false)
     const [show, setShow] = useState(false);
     const [title, setTitle] = useState("");
     const [imgurl, setImgurl] = useState("");
@@ -16,9 +17,14 @@ export default function PriceHistoryResults(props) {
         console.log("we in useeffects");
         Socket.on('price history response', (data) => {
           if(props.ASIN == data['ASIN']) {
+              if(data['status'] == '200') {
+                setPricehistory(data['pricehistory'])
+                setHistoryExists(true)
+              } else {
+                  setHistoryExists(false)
+              }
             setTitle(data['title'])
             setImgurl(data['imgurl'])
-            setPricehistory(data['pricehistory']),
             setShow(true);
           }
         });
@@ -29,22 +35,30 @@ export default function PriceHistoryResults(props) {
         <div>
             { show ?
                 (
-                <div>
-                    <h3>Price Change History For this Item</h3>
-                    <ul>
-                        {pricehistory.map((item) => (
-                            <li>{item.price_date}-${item.price}</li>
-                        ))}
-                    </ul>
-                    <PostButton
-                        ASIN={props.ASIN}
-                        priceHistory={pricehistory}
-                        title={title}
-                        imgurl={imgurl}
-                        user = {user}
-                        time = {time}
-                    />
-                </div>
+                    <div>
+                    { historyExists ?
+                        (
+                            <div>
+                                <h3>Price Change History For this Item</h3>
+                                <ul>
+                                    {pricehistory.map((item) => (
+                                        <li>{item.price_date}-${item.price}</li>
+                                    ))}
+                                </ul>
+                                <PostButton
+                                    ASIN={props.ASIN}
+                                    priceHistory={pricehistory}
+                                    title={title}
+                                    imgurl={imgurl}
+                                    user = {user}
+                                    time = {time}
+                                />
+                            </div>
+                        ) : (
+                            <h3>This item's prices are not accessible</h3>
+                        )
+                    }
+                    </div>
                 ) : (null)
             }
         </div>

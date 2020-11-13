@@ -88,6 +88,17 @@ def get_price_history(data):
     print(data['ASIN'])
     #price_history = mock_price_history(data['ASIN'])
     price_history = fetch_price_history(data['ASIN'])
+    
+    if price_history == None:
+        socketio.emit(PRICE_HISTORY_RESPONSE_CHANNEL, {
+            'status': '404',
+            'pricehistory': [],
+            'ASIN': data['ASIN'],
+            'title': data['title'],
+            'imgurl': data['imgurl']
+        })
+        return
+    
     return_array = []
     return_array.append(price_history[0])
     for i in range(0, len(price_history)-1):
@@ -99,7 +110,8 @@ def get_price_history(data):
         return_array = return_array[ len(return_array)- 11 : len(return_array) - 1 ]
     print("Got an event for price history search with data: ", data)
     socketio.emit(PRICE_HISTORY_RESPONSE_CHANNEL, {
-        "pricehistory": return_array,
+        'status': '200',
+        'pricehistory': return_array,
         'ASIN': data['ASIN'],
         'title': data['title'],
         'imgurl': data['imgurl']
