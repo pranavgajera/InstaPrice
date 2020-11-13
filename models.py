@@ -2,6 +2,7 @@
 import flask_sqlalchemy
 from app import db
 
+
 class Posts(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     itemname = db.Column(db.String(225))
