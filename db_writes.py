@@ -20,7 +20,7 @@ SQL_PWD = url.password
 SQL_DB = url.path[1:]
 DBUSER = url.hostname
 
-con = psycopg2.connect(database=SQL_DB, user=SQL_USER, password=SQL_PWD, host="localhost")
+#con = psycopg2.connect(database=SQL_DB, user=SQL_USER, password=SQL_PWD, host=DBUSER)
 
 
 def price_write(price_data):
