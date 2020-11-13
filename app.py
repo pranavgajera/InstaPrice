@@ -9,8 +9,6 @@ from api_calls import mock_search_response
 from api_calls import mock_price_history
 from api_calls import search_amazon
 from api_calls import fetch_price_history
-#from db_writes import price_write
-import models
 import json
 
 SEARCH_REQUEST_CHANNEL = "search request"
@@ -33,6 +31,8 @@ app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URI
 db = flask_sqlalchemy.SQLAlchemy(app)
 db.init_app(app)
 db.app = app
+import models
+from db_writes import price_write
 db.create_all()
 db.session.commit()
 
@@ -95,7 +95,7 @@ def get_price_history(data):
         if price_history[i+1]["price"] != price_history[i]["price"]:
             return_array.append(price_history[i])
     # price_history = price_history[len(price_history)-10:len(price_history)]
-    print(json.dumps(return_array, indent=4))
+    # print(json.dumps(return_array, indent=4))
     if len(return_array) >=11:
         return_array = return_array[ len(return_array)- 11 : len(return_array) - 1 ]
     print("Got an event for price history search with data: ", data)
@@ -116,7 +116,6 @@ postList = []
 def post_price_history(data):
     # postList.update({data['ASIN']: data['priceHistory']})
     postList.append(data['priceHistory'])
-    print(data)
     price_write(data)
     socketio.emit('post price history', {
         'postList': postList

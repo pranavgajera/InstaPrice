@@ -10,15 +10,12 @@ class Posts(db.Model):
     username = db.Column(db.String(225))
     pfp = db.Column(db.String(225))
     time = db.Column(db.String(225))
-    
-    def __init__(self, itemname, imageurl, pricehist, username, profilepic, time):
+
+    def __init__(self, itemname, imageurl, pricehist, username, pfp, time):
+        """Initializes the Post object with its attributes"""
         self.itemname = itemname
         self.imageurl = imageurl
         self.pricehist = pricehist
         self.username = username
-        self.pfp = profilepic
+        self.pfp = pfp
         self.time = time
-        
-    def __repr__(self):
-        return "<Item: %s>" % self.item_name
-        
