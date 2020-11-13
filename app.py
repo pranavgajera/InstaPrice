@@ -24,7 +24,7 @@ app = flask.Flask(__name__)
 socketio = flask_socketio.SocketIO(app)
 socketio.init_app(app, cors_allowed_origins="*")
 
-app.config["SQLALCHEMY_DATABASE_URI"] = f'postgresql://{SQL_USER}:{SQL_PWD}@localhost/{SQL_DB}'
+app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URI
 
 db = flask_sqlalchemy.SQLAlchemy(app)
 db.init_app(app)
@@ -76,8 +76,8 @@ def on_disconnect():
 @socketio.on(SEARCH_REQUEST_CHANNEL)
 def search_request(data):
     print("Got an event for search request with data: ", data)
-    #search_list = mock_search_response(data['query'])
-    search_list = search_amazon(data['query'])
+    search_list = mock_search_response(data['query'])
+    #search_list = search_amazon(data['query'])
     # print(search_list)
     # search_amazon(data['query'])
 
@@ -89,8 +89,8 @@ def search_request(data):
 def get_price_history(data):
     print(data['ASIN'])
     print(data)
-    #price_history = mock_price_history(data['ASIN'])
-    price_history = fetch_price_history(data['ASIN'])
+    price_history = mock_price_history(data['ASIN'])
+    #price_history = fetch_price_history(data['ASIN'])
     return_array = []
     return_array.append(price_history[0])
     for i in range(0, len(price_history)-1):
@@ -119,6 +119,7 @@ postList = []
 @socketio.on('post price history')
 def post_price_history(data):
     # postList.update({data['ASIN']: data['priceHistory']})
+    print(data)
     postList.append(data['priceHistory'])
     now = datetime.now()
     dt_string = now.strftime("%d/%m/%Y %H:%M")
