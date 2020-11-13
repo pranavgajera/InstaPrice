@@ -8,6 +8,8 @@ sys.path.insert(1, os.getcwd())
 
 import app
 import api_calls
+import db_writes
+
 class TestBot(unittest.TestCase):
     def test_googleconnect(self):
         """Connection and disconnection test"""
@@ -99,3 +101,34 @@ class TestBot(unittest.TestCase):
         flask_test_client = app.app.test_client()
         response = flask_test_client.get('/', content_type='html')
         self.assertEqual(response.status_code, 200)
+        
+    def test_db(self):
+        with patch('psycopg2.connect') as mock_connect:
+            KEY_INPUT = [{
+                    'ASIN': 'B0897VCSXQ', 
+                    'priceHistory': [{'price': 420.42, 'price_date': '08/04/2020'}], 
+                    'title': 'PlayStation 6', 
+                    'imgurl': 'playstation6.jpg', 
+                    'user': 'john', 
+                    'time': '12:00'}]
+            KEY_EXPECTED = [{
+                    'itemname': 'PlayStation 6', 
+                    'imgurl': 'playstation6.jpg', 
+                    'pricehistory': '08/04/2020 - 420.42 ', 
+                    'user': 'john', 
+                    'pfp': 'temp profile picture', 
+                    'time': '12:00'}]
+            USER_INPUT = 'john'
+        
+            price_write(KEY_INPUT)
+            mock_con = mock_connect.return_value 
+            mock_cur = mock_con.cursor.return_value 
+            mock_cur = mock_con.cursor.return_value 
+            feteched_data = get_posts(USER_INPUT)
+            mock_con = mock_connect.return_value 
+            mock_cur = mock_con.cursor.return_value 
+            mock_cur = mock_con.cursor.return_value 
+            mock_cur.fetchall.return_value = KEY_EXPECTED
+            self.assertEquals(KEY_EXPECTED, feteched_data)
+            
+        
