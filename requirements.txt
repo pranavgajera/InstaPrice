@@ -3,3 +3,4 @@ tweepy
 Flask
 requests
 Flask-SocketIO
+psycopg2-binary==2.8.6
