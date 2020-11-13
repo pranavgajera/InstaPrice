@@ -1,6 +1,6 @@
 ## Heroku Link: https://cs490-instaprice.herokuapp.com/
 
-## Task Distribution:
+## Task Distribution
 * Pranavkumar Gajera
     * Boilerplate Code for React and Flask
     * Google OAuth login functionality
