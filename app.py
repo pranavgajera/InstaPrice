@@ -9,6 +9,7 @@ from api_calls import mock_search_response
 from api_calls import mock_price_history
 from api_calls import search_amazon
 from api_calls import fetch_price_history
+from db_writes import *
 import json
 
 SEARCH_REQUEST_CHANNEL = "search request"
@@ -29,7 +30,6 @@ db = flask_sqlalchemy.SQLAlchemy(app)
 db.init_app(app)
 db.app = app
 import models
-from db_writes import price_write
 db.create_all()
 db.session.commit()
 
@@ -85,12 +85,13 @@ def search_request(data):
 @socketio.on(PRICE_HISTORY_REQUEST_CHANNEL)
 def get_price_history(data):
     print(data['ASIN'])
+    #price_history = mock_price_history(data['ASIN'])
     price_history = fetch_price_history(data['ASIN'])
-    #price_history = fetch_price_history(data['ASIN'])
     return_array = []
+    return_array.append(price_history[0])
     for i in range(0, len(price_history)-1):
         if price_history[i+1]["price"] != price_history[i]["price"]:
-            return_array.append(price_history[i])
+            return_array.append(price_history[i+1])
     # price_history = price_history[len(price_history)-10:len(price_history)]
     # print(json.dumps(return_array, indent=4))
     if len(return_array) >=11:
@@ -119,33 +120,6 @@ def post_price_history(data):
     })
     print("This is the price history:", data['ASIN'], data['priceHistory'])
     emit_all_items(FEED_UPDATE_CHANNEL)
-
-def price_write(price_data):
-    """
-    with con:
-        cur = con.cursor()
-        price_list = price_data['priceHistory']
-        price_list_str = ''
-        for entry in price_list:
-            price_list_str += entry['price_date'] + ' - ' + str(entry['price']) + ' '
-        item = price_data['title']
-        imageurl = price_data['imgurl']
-        poster = price_data['user']
-        pfp = "temp profile picture"
-        time = price_data['time']
-        cur.execute("INSERT INTO posts (itemname, imageurl, pricehist, username, pfp, time) VALUES (%s, %s, %s, %s, %s, %s);", (item, imageurl, price_list_str, poster, pfp, time))
-    """
-    price_list = price_data['priceHistory']
-    price_list_str = ''
-    for entry in price_list:
-        price_list_str += entry['price_date'] + ' - ' + str(entry['price']) + ' '
-    item = price_data['title']
-    imageurl = price_data['imgurl']
-    poster = price_data['user']
-    pfp = "temp profile picture"
-    time = price_data['time']
-    db.session.add(models.Posts(item,imageurl,price_list_str, poster, pfp, time))
-
 
 if __name__ == '__main__':
     socketio.run(

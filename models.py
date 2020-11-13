@@ -1,9 +1,13 @@
-# models.py
-import flask_sqlalchemy
+""" Models for DB"""
 from app import db
+# pylint: disable=too-few-public-methods
+# Doesn't detect methods from DB classes
+# pylint: disable=too-many-arguments
+# DB classes will take many arguments
 
 
 class Posts(db.Model):
+    """Posts class that interacts with posts made in the webapp"""
     id = db.Column(db.Integer, primary_key=True)
     itemname = db.Column(db.String(225))
     imageurl = db.Column(db.String(225))

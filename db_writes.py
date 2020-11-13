@@ -28,7 +28,7 @@ def price_write(price_data):
 
 
 def get_posts(username):
-    """Fetch from DB"""
+    """fetches posts from DB"""
     rows = db.session.query.filter_by(username=username).all()
     item_data = {
         'itemname': rows[0][1],
