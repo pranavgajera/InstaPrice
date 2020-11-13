@@ -26,7 +26,7 @@ socketio.init_app(app, cors_allowed_origins="*")
 
 #SQL_USER = os.environ["SQL_USER"]
 #SQL_PWD = os.environ["SQL_PASSWORD"]
-DBUSER = os.environ["USER"]
+#DBUSER = os.environ["USER"]
 DATABASE_URI = os.environ["DATABASE_URL"]
 app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URI
 
