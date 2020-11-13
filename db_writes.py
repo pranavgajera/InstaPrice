@@ -12,7 +12,7 @@ import urllib.parse as urlparse
 DOTENV_PATH = os.path.join(os.path.dirname(__file__), "secret_tokens.env")
 dotenv.load_dotenv(DOTENV_PATH)
 
-DATABASE_URI = os.environ["HEROKU_POSTGRESQL_BLACK_URL"]
+DATABASE_URI = os.environ["DATABASE_URL"]
 url = urlparse.urlparse(DATABASE_URI)
 
 SQL_USER = url.username
