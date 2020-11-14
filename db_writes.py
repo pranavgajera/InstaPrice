@@ -10,6 +10,7 @@ SQL_USER = os.environ["SQL_USER"]
 SQL_PWD = os.environ["SQL_PASSWORD"]
 SQL_DB = os.environ["SQL_DB"]
 DBUSER = os.environ["USER"]
+DBHOST = os.environ["DB_HOST"]
 DATABASE_URI = os.environ["DATABASE_URL"]
 
 con = psycopg2.connect(database=SQL_DB, user=SQL_USER, password=SQL_PWD, host="localhost")
