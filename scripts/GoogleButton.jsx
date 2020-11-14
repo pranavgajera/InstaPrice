@@ -25,7 +25,7 @@ export default function GoogleButton() {
       <GoogleLogin
         clientId="938017382447-u5e1vhhggfpi3rf2ifl94gs8030v6d1s.apps.googleusercontent.com"
         buttonText="Login"
-        onSuccess={handleSubmit}
+        onSuccess={handleSubmit} 
         onFailure={responseGoogle}
         cookiePolicy="single_host_origin"
       />
