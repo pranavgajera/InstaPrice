@@ -13,7 +13,7 @@ DBUSER = os.environ["USER"]
 DBHOST = os.environ["DB_HOST"]
 DATABASE_URI = os.environ["DATABASE_URL"]
 
-con = psycopg2.connect(database=SQL_DB, user=SQL_USER, password=SQL_PWD, host="localhost")
+con = psycopg2.connect(database=SQL_DB, user=SQL_USER, password=SQL_PWD, host=DBHOST)
 
 def price_write(price_data):
     with con:
