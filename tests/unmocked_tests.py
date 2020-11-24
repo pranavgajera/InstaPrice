@@ -5,7 +5,8 @@ import os
 import json
 from os.path import join, dirname
 sys.path.insert(1, os.getcwd())
-import api_calls
+from api_calls import mock_price_history
+from api_calls import mock_search_response
 from models import Posts
 from db_writes import price_write, get_posts
 
@@ -62,7 +63,7 @@ class DbWriteTestCase(unittest.TestCase):
             self.assertEqual(postdata['user'], expected['user'])
 
     def test_mock_search_response(self):
-        test_result = api_calls.mock_search_response('query')
+        test_result = mock_search_response('query')
         # print(test_result)
         return_result = {
             'ASIN': 'B0897VCSXQ',
@@ -78,7 +79,7 @@ class DbWriteTestCase(unittest.TestCase):
         self.assertDictEqual(test_result[0], return_result)
         
     def test_mock_price_history(self):
-        test_result = api_calls.mock_price_history('query')
+        test_result = mock_price_history('query')
         return_result = {
             'price': 6.05, 
             'price_date': '12/07/2019'
