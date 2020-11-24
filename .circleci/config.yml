@@ -18,8 +18,8 @@ jobs:
           command: python ./tests/mocked_tests.py
           name: Mocked Tests
 
-  workflows:
-    version: 2.1
-    test_deploy:
-      jobs:
-        - build-and-test
+workflows:
+  version: 2.1
+  test_deploy:
+    jobs:
+      - build-and-test
