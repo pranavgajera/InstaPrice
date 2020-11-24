@@ -23,6 +23,7 @@ class TestBot(unittest.TestCase):
                 "profilepicture": "https://miro.medium.com/max/500/1*zzo23Ils3C0ZDbvZakwXlg.png"
             })
         response = socketio_test_clinet.get_received()
+        # print(json.dumps(response, indent=4))
         user = response[0]['args'][0]['username']
         self.assertEqual(user, "Pranav Gajera")
         response2 = socketio_test_clinet.disconnect()
@@ -53,7 +54,7 @@ class TestBot(unittest.TestCase):
             })
             socket_response = socketio_test_client.get_received()
             response = socket_response[0]['args'][0]['search_list']
-            # print(response)
+            # print(json.dumps(response, indent=4))
             self.assertEquals(response["ASIN"], "B07X6C9RMF")
 
     def test_amazon_price_search(self):
@@ -82,7 +83,7 @@ class TestBot(unittest.TestCase):
             })
 
             socket_response = socketio_test_client.get_received()
-            # print(socket_response)
+            print(json.dumps(socket_response, indent=4))
             response = socket_response[0]['args'][0]['pricehistory'][0]
 
             self.assertEquals(response["price"], 58.84)
@@ -119,7 +120,7 @@ class TestBot(unittest.TestCase):
                     'imgurl': 'playstation6.jpg',
                     'pricehistory': '08/04/2020 - 420.42 ',
                     'user': 'john',
-                    'pfp': 'pfp',
+                    'pfp': 'temp profile picture',
                     'time': '12:00'}
             USER_INPUT = 'john'
     
@@ -146,6 +147,7 @@ class TestBot(unittest.TestCase):
             })
             socket_response = socketio_test_client.get_received()
             response = socket_response[0]['args'][0]['search_list']
+            # print(json.dumps(response, indent=4))
 
             response_items = []
             for item in response:
@@ -180,7 +182,7 @@ class TestBot(unittest.TestCase):
 
             socket_response = socketio_test_client.get_received()
             response = socket_response[0]['args'][0]['pricehistory'][0]
-            print(json.dumps(response, indent=4))
+            # print(json.dumps(response, indent=4))
 
             self.assertEquals(response["price"], 58.84)
 
