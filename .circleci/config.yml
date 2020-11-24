@@ -19,6 +19,7 @@ jobs:
           name: Mocked Tests
 
   workflows:
+    version: 2.1
     test_deploy:
-        jobs:
-          - build-and-test
+      jobs:
+        - build-and-test
