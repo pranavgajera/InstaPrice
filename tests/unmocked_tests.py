@@ -21,7 +21,8 @@ class DbWriteTestCase(unittest.TestCase):
                     'ASIN': 'B0897VCSXQ', 
                     'priceHistory': [{'price': 420.42, 'price_date': '08/04/2020'}], 
                     'title': 'PlayStation 6', 
-                    'imgurl': 'playstation6.jpg', 
+                    'imgurl': 'playstation6.jpg',
+                    'profpic': 'temp profile picture',
                     'user': 'john', 
                     'time': '12:00'},
                 KEY_EXPECTED: {
@@ -29,7 +30,7 @@ class DbWriteTestCase(unittest.TestCase):
                     'imgurl': 'playstation6.jpg', 
                     'pricehistory': '08/04/2020 - 420.42 ', 
                     'user': 'john', 
-                    'pfp': 'temp profile picture', 
+                    'pfp': 'temp profile picture',
                     'time': '12:00'}
             },
             {
@@ -37,7 +38,8 @@ class DbWriteTestCase(unittest.TestCase):
                     'ASIN': '1111111', 
                     'priceHistory': [{'price': 4.20, 'price_date': '04/20/2021'}], 
                     'title': 'Socks that are red', 
-                    'imgurl': 'redsocks.jpg', 
+                    'imgurl': 'redsocks.jpg',
+                    'profpic': 'temp profile picture',
                     'user': 'steve', 
                     'time': '04:20'},
                 KEY_EXPECTED: {
@@ -45,7 +47,7 @@ class DbWriteTestCase(unittest.TestCase):
                     'imgurl': 'redsocks.jpg', 
                     'pricehistory': '04/20/2021 - 4.20 ', 
                     'user': 'steve', 
-                    'pfp': 'temp profile picture', 
+                    'pfp': 'temp profile picture',
                     'time': '04:20'}
             },
         ]

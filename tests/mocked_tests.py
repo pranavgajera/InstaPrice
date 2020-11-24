@@ -77,7 +77,8 @@ class TestBot(unittest.TestCase):
                 "ASIN": "B07X6C9RMF",
                 "title": "Blink Mini \u2013 Compact indoor plug-in smart security camera, 1080 HD video, motion detection, night vision, Works with Alexa \u2013 1 camera",
                 "imgurl": "https://m.media-amazon.com/images/I/31Ce3B42urL._SL160_.jpg",
-
+                "username":"random",
+                'pfp':"pfp"
             })
 
             socket_response = socketio_test_client.get_received()
@@ -110,7 +111,9 @@ class TestBot(unittest.TestCase):
                     'title': 'PlayStation 6',
                     'imgurl': 'playstation6.jpg',
                     'user': 'john',
-                    'time': '12:00'}
+                    'time': '12:00',
+                    'profpic':'pfp'
+            }
             KEY_EXPECTED = {
                     'itemname': 'PlayStation 6',
                     'imgurl': 'playstation6.jpg',
@@ -170,6 +173,8 @@ class TestBot(unittest.TestCase):
                 "ASIN": "B07X6C9RMF",
                 "title": "Blink Mini \u2013 Compact indoor plug-in smart security camera, 1080 HD video, motion detection, night vision, Works with Alexa \u2013 1 camera",
                 "imgurl": "https://m.media-amazon.com/images/I/31Ce3B42urL._SL160_.jpg",
+                "username": "random",
+                'pfp': "pfp"
 
             })
 
