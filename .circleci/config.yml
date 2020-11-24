@@ -23,6 +23,6 @@ jobs:
     heroku_deploy:
       jobs:
         - build-and-test
-            filters:
-              branches:
-                only: main
+      filters:
+        branches:
+          only: master
