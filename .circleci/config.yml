@@ -2,7 +2,6 @@ version: 2.1
 
 orbs:
   python: circleci/python@0.2.1
-  heroku: circleci/heroku@0.0.10
 
 jobs:
   build-and-test:
@@ -20,6 +19,6 @@ jobs:
           name: Mocked Tests
 
   workflows:
-    heroku_deploy:
+    test_deploy:
       jobs:
         - build-and-test
